@@ -8,3 +8,11 @@ export function CreateBook(book) {
 export function GetBooks() {
     return axios.get(BOOK, { headers: { 'x-access-token': localStorage.getItem('token') } });
 }
+
+export function UpdateBook(book) {
+    return axios.put(`${BOOK}/${book._id}`, book, { headers: { 'x-access-token': localStorage.getItem('token') } });
+}
+
+export function DeleteBook(id) {
+    return axios.delete(`${BOOK}/${id}`, { headers: { 'x-access-token': localStorage.getItem('token') } });
+}

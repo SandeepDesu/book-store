@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from 'react-router-dom';
 
 import SignUp from './components/signup/signup';
@@ -18,6 +18,13 @@ class App extends React.Component {
       <Router>
         <div className="container mt-5">
           <Switch>
+            <Route exact path="/">
+              <Redirect
+                to={{
+                  pathname: "/login"
+                }}
+              />
+            </Route>
 
             <Route path="/login">
               <SignIn />
@@ -27,15 +34,15 @@ class App extends React.Component {
               <SignUp />
             </Route>
 
-            <AdminAuthentication path="/addbook">
+            <AdminAuthentication path="/admin/addbook">
               <AddBook />
             </AdminAuthentication>
 
-            <AdminAuthentication path="/dashboard">
+            <AdminAuthentication path="/admin/dashboard">
               <AdminDashboard />
             </AdminAuthentication>
 
-            <UserAuthentication path="/list">
+            <UserAuthentication path="/user/list">
               <BookList />
             </UserAuthentication>
           </Switch>
@@ -55,9 +62,12 @@ function AdminAuthentication(props) {
       </Route>
     )
   } else {
-    return (
-      <h1>You dont have permission for this route</h1>
-    )
+    localStorage.clear();
+    return (<Redirect
+      to={{
+        pathname: "/login"
+      }}
+    />)
   }
 }
 
@@ -71,9 +81,12 @@ function UserAuthentication(props) {
       </Route>
     )
   } else {
-    return (
-      <h1>You dont have permission for this route</h1>
-    )
+    localStorage.clear();
+    return (<Redirect
+      to={{
+        pathname: "/login"
+      }}
+    />)
   }
 }
 

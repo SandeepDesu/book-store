@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link, withRouter } from "react-router-dom";
 import { CreateBook } from '../../services/book';
-export default class AddBook extends React.Component {
+class AddBook extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -28,8 +29,10 @@ export default class AddBook extends React.Component {
             description: this.state.description,
             imageUrl: this.state.imageUrl
         };
-        CreateBook(book).then((success)=>{
-             console.log(success);
+        CreateBook(book).then((success) => {
+            if (success.data.message === 'success') {
+                this.props.history.push('/admin/dashboard');
+            }
         });
     }
 
@@ -65,7 +68,10 @@ export default class AddBook extends React.Component {
                     </div>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={this.submit}>Add Book</button>
+                <Link className="btn btn-primary ml-2" to="/admin/dashboard">Dashboard</Link>
             </form>
         )
     }
 }
+
+export default withRouter(AddBook);

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link, withRouter } from "react-router-dom";
 import { Auth } from '../../services/auth';
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -20,6 +21,11 @@ export default class SignIn extends React.Component {
             if (success && success.data && success.data.token) {
                 localStorage.setItem('token', success.data.token);
                 localStorage.setItem('role', success.data.details.role);
+                if (success.data.details.role === 'admin') {
+                    this.props.history.push('/admin/dashboard');
+                } else {
+                    this.props.history.push('/user/list');
+                }
             }
         });
     }
@@ -36,7 +42,10 @@ export default class SignIn extends React.Component {
                     <input type="password" className="form-control" id="password" placeholder="Password" name="password" onChange={this.changeText} />
                 </div>
                 <button type="button" className="btn btn-primary" onClick={this.submit}>Sign IN</button>
+                <Link className="btn btn-primary ml-2" to="/register">Register</Link>
             </form>
         )
     }
 }
+
+export default withRouter(SignIn);

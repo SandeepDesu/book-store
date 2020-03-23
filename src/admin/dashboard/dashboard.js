@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { GetBooks, UpdateBook, DeleteBook } from '../../services/book';
 
 export default class AdminDashboard extends React.Component {
@@ -69,6 +70,7 @@ export default class AdminDashboard extends React.Component {
                     <ul className="list-group">
                         {listOfBooks}
                     </ul>
+                    <Link className="btn btn-primary mt-2" to="/admin/addbook">Add Book</Link>
                 </div>
                 {this.state.isBookAvailable ? <div className="col-md-8">
                     <form>
@@ -106,6 +108,7 @@ export default class AdminDashboard extends React.Component {
                     </form>
                 </div> : null}
             </div>
+
         )
     }
 }

@@ -1,6 +1,9 @@
 import React from 'react';
+import {
+    Link, withRouter
+} from "react-router-dom";
 import { Register } from '../../services/user';
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 
     constructor() {
         super();
@@ -20,6 +23,10 @@ export default class SignUp extends React.Component {
 
     submit = () => {
         Register(this.state).then((success) => {
+            console.log(success);
+            if (success.data.message === 'success') {
+                this.props.history.push('/login');
+            }
         });
     }
 
@@ -55,7 +62,10 @@ export default class SignUp extends React.Component {
                     </div>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={this.submit}>Sign UP</button>
+                <Link className="btn btn-primary ml-2" to="/login">Login</Link>
             </form>
         )
     }
 }
+
+export default withRouter(SignUp);

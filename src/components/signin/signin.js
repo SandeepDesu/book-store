@@ -19,6 +19,7 @@ export default class SignIn extends React.Component {
         Auth(this.state).then((success) => {
             if (success && success.data && success.data.token) {
                 localStorage.setItem('token', success.data.token);
+                localStorage.setItem('role', success.data.details.role);
             }
         });
     }

@@ -18,7 +18,7 @@ export default class AdminDashboard extends React.Component {
 
     getBooks = () => {
         GetBooks().then((success) => {
-            if (success && success.data && success.data.length) {
+            if (success && success.data && typeof success.data !== 'string') {
                 this.setState({
                     books: success.data
                 });

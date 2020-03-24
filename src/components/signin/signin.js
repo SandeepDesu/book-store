@@ -21,6 +21,7 @@ class SignIn extends React.Component {
             if (success && success.data && success.data.token) {
                 localStorage.setItem('token', success.data.token);
                 localStorage.setItem('role', success.data.details.role);
+                localStorage.setItem('userDetails', JSON.stringify(success.data.details));
                 if (success.data.details.role === 'admin') {
                     this.props.history.push('/admin/dashboard');
                 } else {
